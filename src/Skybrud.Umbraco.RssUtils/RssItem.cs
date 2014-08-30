@@ -9,6 +9,7 @@ namespace Skybrud.Umbraco.RssUtils {
         public string Link { get; set; }
         public DateTime PubDate { get; set; }
         public string Guid { get; set; }
+        public string Description { get; set; }
         public string Content { get; set; }
 
         public XElement ToXElement() {
@@ -25,6 +26,7 @@ namespace Skybrud.Umbraco.RssUtils {
             XNamespace xContent = "http://purl.org/rss/1.0/content";
 
             // Add optinal attributes
+            if (!String.IsNullOrWhiteSpace(Description)) xItem.Add(new XElement("description", new XCData(Description)));
             if (!String.IsNullOrWhiteSpace(Content)) xItem.Add(new XElement(xContent + "encoded", new XCData(Content)));
 
             return xItem;

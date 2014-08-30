@@ -164,6 +164,7 @@ namespace Skybrud.Umbraco.RssUtils {
 
         public XDocument ToXDocument() {
 
+            // Initialize the element for the channel
             XElement xChannel = new XElement(
                 "channel",
                 new XElement("title", Title ?? ""),
@@ -172,17 +173,23 @@ namespace Skybrud.Umbraco.RssUtils {
                 from item in Items orderby item.PubDate descending select item.ToXElement()
             );
 
+            // Add extra elements to the channel (if specified)
             if (!String.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
             if (!String.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));
             if (!String.IsNullOrWhiteSpace(Language)) xChannel.Add(new XElement("language", Language));
 
+            // Initialize the root element of the feed
+            XElement xRss = new XElement("rss", xChannel);
+
+            // Add the content namespace only if necessary
+            if (Items.Any(x => !String.IsNullOrWhiteSpace(x.Content))) {
+                xRss.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/content"));
+            }
+
+            // Return the XDocument
             return new XDocument(
                 new XDeclaration("1.0", "UTF-8", "true"),
-                new XElement(
-                    "rss",
-                    new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/content"),
-                    xChannel
-                )
+                xRss
             );
 
         }
