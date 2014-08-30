@@ -193,10 +193,14 @@ namespace Skybrud.Umbraco.RssUtils {
             );
 
         }
-
+        
         public void Write() {
+            Write(SaveOptions.DisableFormatting);
+        }
+
+        public void Write(SaveOptions options) {
             HttpContext.Current.Response.ContentType = "application/rss+xml";
-            ToXDocument().Save(HttpContext.Current.Response.OutputStream);
+            ToXDocument().Save(HttpContext.Current.Response.OutputStream, options);
             HttpContext.Current.Response.End();
         }
 
