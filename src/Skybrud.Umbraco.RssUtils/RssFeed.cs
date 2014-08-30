@@ -15,10 +15,33 @@ namespace Skybrud.Umbraco.RssUtils {
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the title of the feed.
+        /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the link of the feed. This link is usually an URL to
+        /// where the feed can be downloaded or simply the URL to the index
+        /// page of the website.
+        /// </summary>
         public string Link { get; set; }
+
+        /// <summary>
+        /// Gets or sets the generator of the feed. If you're a good fellow,
+        /// you will set this to &quot;Skybrud.Umbraco.RssUtils&quot;, but
+        /// this is not a requirement.
+        /// </summary>
         public string Generator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the feed.
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the language of the feed.
+        /// </summary>
         public string Language { get; set; }
 
         /// <summary>
@@ -194,10 +217,21 @@ namespace Skybrud.Umbraco.RssUtils {
 
         }
         
+        /// <summary>
+        /// Writes the feed to the current response stream as well as setting
+        /// the correct mime type. Formatting will be disabled for the XML
+        /// meaning no line breaks and indentation.
+        /// </summary>
         public void Write() {
             Write(SaveOptions.DisableFormatting);
         }
 
+        /// <summary>
+        /// Writes the feed to the current response stream as well as setting
+        /// the correct mime type. The XML is generated using the specified
+        /// save options.
+        /// </summary>
+        /// <param name="options">The save options.</param>
         public void Write(SaveOptions options) {
             HttpContext.Current.Response.ContentType = "application/rss+xml";
             ToXDocument().Save(HttpContext.Current.Response.OutputStream, options);
