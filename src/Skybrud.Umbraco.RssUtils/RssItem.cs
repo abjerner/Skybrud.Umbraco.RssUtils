@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-namespace Skybrud.Umbraco.Rss {
+namespace Skybrud.Umbraco.RssUtils {
 
     public class RssItem {
 

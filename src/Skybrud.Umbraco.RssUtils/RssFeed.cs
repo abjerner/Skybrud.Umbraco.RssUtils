@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace Skybrud.Umbraco.Rss {
+namespace Skybrud.Umbraco.RssUtils {
 
     public class RssFeed {
 
