@@ -192,14 +192,16 @@ namespace Skybrud.Umbraco.RssUtils {
                 "channel",
                 new XElement("title", Title ?? ""),
                 new XElement("link", Link ?? ""),
-                new XElement("pubDate", PubDate.ToUniversalTime().ToString("r")),
-                from item in Items orderby item.PubDate descending select item.ToXElement()
+                new XElement("pubDate", PubDate.ToUniversalTime().ToString("r"))
             );
 
             // Add extra elements to the channel (if specified)
             if (!String.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
             if (!String.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));
             if (!String.IsNullOrWhiteSpace(Language)) xChannel.Add(new XElement("language", Language));
+
+            // Add the items to the channel
+            xChannel.Add(from item in Items orderby item.PubDate descending select item.ToXElement());
 
             // Initialize the root element of the feed
             XElement xRss = new XElement("rss", xChannel);
