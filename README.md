@@ -3,7 +3,7 @@ Skybrud.Umbraco.RssUtils
 
 ## Example
 
-This package is created for use in Umbraco, so this example shows how to use the package in an Umbraco MVC view. However the package itself doesn't contain any Umbraco specific code, so you're free to do something similar in other systems (or just native ASP.NET as well).
+This package is created for use in Umbraco, so this example shows how to use the package in an Umbraco MVC view. However the package itself doesn't contain any Umbraco specific code, so you're free to do something similar in other systems (or just native ASP.NET) as well.
 
 ```C#
 @using System.Xml.Linq
