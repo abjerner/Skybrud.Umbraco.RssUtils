@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Skybrud.Umbraco.RssUtils</id>
+    <title>Skybrud.Umbraco.RssUtils</title>
+    <version>1.0.3</version>
+    <authors>Anders Bjerner</authors>
+    <owners>Anders Bjerner</owners>
+    <licenseUrl>https://github.com/abjerner/Skybrud.Umbraco.RssUtils/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/abjerner/Skybrud.Umbraco.RssUtils/</projectUrl>
+    <iconUrl>http://www.skybrud.dk/img/5431sk/icon/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A small library for easily creating RSS feeds in Umbraco.</description>
+    <tags>Umbraco, RSS, helper, utility, library</tags>
+  </metadata>
+  <files>
+    <file src="..\src\Skybrud.Umbraco.RssUtils\bin\Release\Skybrud.Umbraco.RssUtils.dll" target="lib" />
+  </files>
+</package>
