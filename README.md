@@ -1,9 +1,13 @@
 Skybrud.Umbraco.RssUtils
 ========================
 
+**Skybrud.Umbraco.RssUtils** is a .NET package that easily lets you create RSS feeds on the fly without having to worry about generating the proper XML - the package takes care of that for you. 
+
+Since the package is something that I have made for use in Umbraco projects, there is some Umbraco specific code to more easily create new RSS feeds based on `IPublishedContent`, but the package also plays well without Umbraco, so you can use it with other systems (or just native ASP.NET projects) as well.
+
 ## Example
 
-This package is created for use in Umbraco, so this example shows how to use the package in an Umbraco MVC view. However the package itself doesn't contain any Umbraco specific code, so you're free to do something similar in other systems (or just native ASP.NET) as well.
+The package primarily targets Umbraco, so here is a quick example on how the package can be used in a MVC view:
 
 ```C#
 @using System.Xml.Linq
