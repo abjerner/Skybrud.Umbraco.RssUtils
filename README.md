@@ -5,6 +5,12 @@ Skybrud.Umbraco.RssUtils
 
 Since the package is something that I have made for use in Umbraco projects, there is some Umbraco specific code to more easily create new RSS feeds based on `IPublishedContent`, but the package also plays well without Umbraco, so you can use it with other systems (or just native ASP.NET projects) as well.
 
+## Download
+
+Skybrud.Umbraco.RssUtils can be downloaded from NuGet:
+
+http://www.nuget.org/packages/Skybrud.Umbraco.RssUtils/
+
 ## Example
 
 The package primarily targets Umbraco, so here is a quick example on how the package can be used in a MVC view:
