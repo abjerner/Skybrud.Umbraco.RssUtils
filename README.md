@@ -12,7 +12,7 @@ This package is created for use in Umbraco, so this example shows how to use the
 @{
     Layout = null;
 
-    // Obviously the news articles should be hardcoded
+    // Obviously the news articles shouldn't be hardcoded
     var articles = new[] {
         new {
             Id = 1,
