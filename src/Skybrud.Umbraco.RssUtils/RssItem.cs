@@ -52,7 +52,7 @@ namespace Skybrud.Umbraco.RssUtils {
                 new XElement("guid", Guid ?? "")
             );
 
-            XNamespace xContent = "http://purl.org/rss/1.0/content";
+            XNamespace xContent = "http://purl.org/rss/1.0/modules/content/";
 
             // Add optinal attributes
             if (!String.IsNullOrWhiteSpace(Description)) xItem.Add(new XElement("description", new XCData(Description)));

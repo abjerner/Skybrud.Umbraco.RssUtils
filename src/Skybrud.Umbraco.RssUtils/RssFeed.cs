@@ -208,7 +208,7 @@ namespace Skybrud.Umbraco.RssUtils {
 
             // Add the content namespace only if necessary
             if (Items.Any(x => !String.IsNullOrWhiteSpace(x.Content))) {
-                xRss.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/content"));
+                xRss.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/modules/content/"));
             }
 
             // Return the XDocument
