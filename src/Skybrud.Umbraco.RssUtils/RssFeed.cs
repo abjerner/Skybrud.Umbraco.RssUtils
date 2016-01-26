@@ -16,6 +16,11 @@ namespace Skybrud.Umbraco.RssUtils {
         #region Properties
 
         /// <summary>
+        /// Gets or sets the version of the RSS specification. Default is <code>2.0</code>.
+        /// </summary>
+        public string Version { get; set; }
+
+        /// <summary>
         /// Gets or sets the title of the feed.
         /// </summary>
         public string Title { get; set; }
@@ -70,14 +75,14 @@ namespace Skybrud.Umbraco.RssUtils {
         #region Constructor
 
         public RssFeed() {
-            // Default constructor
+            Version = "2.0";
         }
 
         /// <summary>
         /// Adds the children of the specified <var>IPublishedContent</var> as RSS items.
         /// </summary>
         /// <param name="parent">The parent of the nodes to be added.</param>
-        public RssFeed(IPublishedContent parent) {
+        public RssFeed(IPublishedContent parent) : this() {
             AddRange(parent.Children);
         }
 
@@ -86,7 +91,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// </summary>
         /// <param name="parent">The parent of the nodes to be added.</param>
         /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
-        public RssFeed(IPublishedContent parent, Func<IPublishedContent, RssItem> func) {
+        public RssFeed(IPublishedContent parent, Func<IPublishedContent, RssItem> func) : this() {
             AddRange(parent.Children, func);
         }
 
@@ -96,7 +101,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="parent">The parent of the nodes to be added.</param>
-        public RssFeed(string title, string link, IPublishedContent parent) {
+        public RssFeed(string title, string link, IPublishedContent parent) : this() {
             Title = title;
             Link = link;
             AddRange(parent.Children);
@@ -109,7 +114,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="parent">The parent of the nodes to be added.</param>
         /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
-        public RssFeed(string title, string link, IPublishedContent parent, Func<IPublishedContent, RssItem> func) {
+        public RssFeed(string title, string link, IPublishedContent parent, Func<IPublishedContent, RssItem> func) : this() {
             Title = title;
             Link = link;
             AddRange(parent.Children, func);
@@ -119,7 +124,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
         /// </summary>
         /// <param name="content">A collection of nodes to be added.</param>
-        public RssFeed(IEnumerable<IPublishedContent> content) {
+        public RssFeed(IEnumerable<IPublishedContent> content) : this() {
             AddRange(content);
         }
 
@@ -127,7 +132,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
         /// </summary>
         /// <param name="content">A collection of nodes to be added.</param>
-        public RssFeed(IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) {
+        public RssFeed(IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) : this() {
             AddRange(content, func);
         }
 
@@ -137,7 +142,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="content">A collection of nodes to be added.</param>
-        public RssFeed(string title, string link, IEnumerable<IPublishedContent> content) {
+        public RssFeed(string title, string link, IEnumerable<IPublishedContent> content) : this() {
             Title = title;
             Link = link;
             AddRange(content);
@@ -150,7 +155,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="content">A collection of nodes to be added.</param>
         /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
-        public RssFeed(string title, string link, IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) {
+        public RssFeed(string title, string link, IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) : this() {
             Title = title;
             Link = link;
             AddRange(content, func);
@@ -187,6 +192,9 @@ namespace Skybrud.Umbraco.RssUtils {
 
         public XDocument ToXDocument() {
 
+            // Initialize the root element of the feed
+            XElement xRss = new XElement("rss");
+
             // Initialize the element for the channel
             XElement xChannel = new XElement(
                 "channel",
@@ -195,16 +203,19 @@ namespace Skybrud.Umbraco.RssUtils {
                 new XElement("pubDate", PubDate.ToUniversalTime().ToString("r"))
             );
 
+            xRss.Add(xChannel);
             // Add extra elements to the channel (if specified)
             if (!String.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
             if (!String.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));
             if (!String.IsNullOrWhiteSpace(Language)) xChannel.Add(new XElement("language", Language));
 
+            // Set the RSS version (if specified)
+            if (!String.IsNullOrWhiteSpace(Version)) {
+                xRss.Add(new XAttribute("version", Version));
+            }
+
             // Add the items to the channel
             xChannel.Add(from item in Items orderby item.PubDate descending select item.ToXElement());
-
-            // Initialize the root element of the feed
-            XElement xRss = new XElement("rss", xChannel);
 
             // Add the content namespace only if necessary
             if (Items.Any(x => !String.IsNullOrWhiteSpace(x.Content))) {
