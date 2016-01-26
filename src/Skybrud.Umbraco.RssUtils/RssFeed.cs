@@ -34,7 +34,7 @@ namespace Skybrud.Umbraco.RssUtils {
 
         /// <summary>
         /// Gets or sets the generator of the feed. If you're a good fellow,
-        /// you will set this to &quot;Skybrud.Umbraco.RssUtils&quot;, but
+        /// you will set this to <code>Skybrud.Umbraco.RssUtils</code>, but
         /// this is not a requirement.
         /// </summary>
         public string Generator { get; set; }
@@ -52,7 +52,7 @@ namespace Skybrud.Umbraco.RssUtils {
         /// <summary>
         /// Gets or sets the publication date of the feed. If no publication date has been explicitly
         /// set, the publication date of the most recent item will be used instead - or
-        /// <var>DateTime.Now</var> if the feed is empty.
+        /// <code>DateTime.Now</code> if the feed is empty.
         /// </summary>
         public DateTime PubDate {
             get {
@@ -82,7 +82,7 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the children of the specified <var>IPublishedContent</var> as RSS items.
+        /// Adds the children of the specified <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="parent">The parent of the nodes to be added.</param>
         public RssFeed(IPublishedContent parent) : this() {
@@ -90,16 +90,16 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the children of the specified <var>IPublishedContent</var> as RSS items.
+        /// Adds the children of the specified <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="parent">The parent of the nodes to be added.</param>
-        /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
+        /// <param name="func">Function to convert an <code>IPublishedContent</code> to <code>RssItem</code>.</param>
         public RssFeed(IPublishedContent parent, Func<IPublishedContent, RssItem> func) : this() {
             AddRange(parent.Children, func);
         }
 
         /// <summary>
-        /// Adds the children of the specified <var>IPublishedContent</var> as RSS items.
+        /// Adds the children of the specified <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
@@ -111,12 +111,12 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the children of the specified <var>IPublishedContent</var> as RSS items.
+        /// Adds the children of the specified <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="parent">The parent of the nodes to be added.</param>
-        /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
+        /// <param name="func">Function to convert an <code>IPublishedContent</code> to <code>RssItem</code>.</param>
         public RssFeed(string title, string link, IPublishedContent parent, Func<IPublishedContent, RssItem> func) : this() {
             Title = title;
             Link = link;
@@ -124,7 +124,7 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
+        /// Adds the specified collection of <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="content">A collection of nodes to be added.</param>
         public RssFeed(IEnumerable<IPublishedContent> content) : this() {
@@ -132,15 +132,16 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
+        /// Adds the specified collection of <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="content">A collection of nodes to be added.</param>
+        /// <param name="func">Function to convert an <code>IPublishedContent</code> to <code>RssItem</code>.</param>
         public RssFeed(IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) : this() {
             AddRange(content, func);
         }
 
         /// <summary>
-        /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
+        /// Adds the specified collection of <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
@@ -152,12 +153,12 @@ namespace Skybrud.Umbraco.RssUtils {
         }
 
         /// <summary>
-        /// Adds the specified collection of <var>IPublishedContent</var> as RSS items.
+        /// Adds the specified collection of <code>IPublishedContent</code> as RSS items.
         /// </summary>
         /// <param name="title">The title of the RSS feed.</param>
         /// <param name="link">A link to the RSS feed or relevant page.</param>
         /// <param name="content">A collection of nodes to be added.</param>
-        /// <param name="func">Function to convert an <var>IPublishedContent</var> to <var>RssItem</var>.</param>
+        /// <param name="func">Function to convert an <code>IPublishedContent</code> to <code>RssItem</code>.</param>
         public RssFeed(string title, string link, IEnumerable<IPublishedContent> content, Func<IPublishedContent, RssItem> func) : this() {
             Title = title;
             Link = link;
@@ -193,7 +194,7 @@ namespace Skybrud.Umbraco.RssUtils {
             _items = _items.OrderByDescending(x => x.PubDate).ToList();
         }
 
-        public XDocument ToXDocument() {
+        public virtual XDocument ToXDocument() {
 
             // Initialize the root element of the feed
             XElement xRss = new XElement("rss");
@@ -207,6 +208,7 @@ namespace Skybrud.Umbraco.RssUtils {
             );
 
             xRss.Add(xChannel);
+
             // Add extra elements to the channel (if specified)
             if (!String.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
             if (!String.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));

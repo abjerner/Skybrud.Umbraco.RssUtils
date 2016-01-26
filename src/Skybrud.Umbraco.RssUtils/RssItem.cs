@@ -21,23 +21,20 @@ namespace Skybrud.Umbraco.RssUtils {
         public DateTime PubDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the GUID (global unique identifier) of the feed item.
-        /// A GUID could be URL of the feed item or some other unique value
-        /// that identifies the item.
+        /// Gets or sets the GUID (global unique identifier) of the feed item. A GUID could be URL of the feed item or
+        /// some other unique value that identifies the item.
         /// </summary>
         public string Guid { get; set; }
 
         /// <summary>
-        /// Gets or sets the description of the feed item. If this property is
-        /// specified, a &lt;description&gt; element will be inserted in the
-        /// XML representing the feed item.
+        /// Gets or sets the description of the feed item. If this property is specified, a <code>description</code>
+        /// element will be inserted in the XML representing the feed item.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the content of the feed item. If this property is
-        /// specified, a &lt;content:encoded&gt; element will be inserted in
-        /// the XML representing the feed item.
+        /// Gets or sets the content of the feed item. If this property is specified, a <code>content:encoded</code>
+        /// element will be inserted in the XML representing the feed item.
         /// </summary>
         public string Content { get; set; }
 
