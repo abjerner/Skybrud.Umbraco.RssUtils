@@ -70,12 +70,15 @@ namespace Skybrud.Umbraco.RssUtils {
             set { _items = value ?? new List<RssItem>(); }
         }
 
+        public bool IncludeAtomLink { get; set; }
+
         #endregion
 
         #region Constructor
 
         public RssFeed() {
             Version = "2.0";
+            IncludeAtomLink = true;
         }
 
         /// <summary>
@@ -212,6 +215,18 @@ namespace Skybrud.Umbraco.RssUtils {
             // Set the RSS version (if specified)
             if (!String.IsNullOrWhiteSpace(Version)) {
                 xRss.Add(new XAttribute("version", Version));
+            }
+
+            // Append "atom:link" to the channel (if enabled)
+            if (IncludeAtomLink) {
+                XNamespace atom = "http://www.w3.org/2005/Atom";
+                xRss.Add(new XAttribute(XNamespace.Xmlns + "atom", "http://www.w3.org/2005/Atom"));
+                xChannel.Add(new XElement(
+                    atom + "link",
+                    new XAttribute("href", Link ?? ""),
+                    new XAttribute("rel", "self"),
+                    new XAttribute("type", "application/rss+xml")
+                ));
             }
 
             // Add the items to the channel
