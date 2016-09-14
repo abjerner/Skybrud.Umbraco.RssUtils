@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Skybrud.Umbraco.RssUtils")]
-[assembly: AssemblyDescription("A small library for easily creating RSS feeds in Umbraco.")]
+[assembly: AssemblyDescription("A small library for easily creating RSS feeds in Umbraco (or ASP.NET in general).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Skybrud.dk")]
 [assembly: AssemblyProduct("Skybrud.Umbraco.RssUtils")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,5 +30,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.3.0")]
-[assembly: AssemblyFileVersion("1.0.3.0")]
+[assembly: AssemblyVersion("1.0.4.0")]
+[assembly: AssemblyInformationalVersion("1.0.4")]
+[assembly: AssemblyFileVersion("1.0.4.0")]
