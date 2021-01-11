@@ -1,0 +1,28 @@
+{
+  "tasks": {
+    "postBuild": [
+      {
+        "alias": "zip",
+        "destination": "releases/github/{packageName}.v{version}.zip",
+        "files": [
+          {
+            "source": "src/{packageName}/bin/Release/net472/",
+            "destination": "bin/",
+            "patterns": [
+              "{packageName}.dll",
+              "{packageName}.xml",
+              "Skybrud.Essentials.dll",
+              "Skybrud.Essentials.xml"
+            ]
+          },
+          {
+            "source": "src",
+            "patterns": [
+              "LICENSE.html"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

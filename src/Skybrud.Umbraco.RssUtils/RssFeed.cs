@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
-using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Skybrud.Umbraco.RssUtils {
@@ -16,7 +16,7 @@ namespace Skybrud.Umbraco.RssUtils {
         #region Properties
 
         /// <summary>
-        /// Gets or sets the version of the RSS specification. Default is <code>2.0</code>.
+        /// Gets or sets the version of the RSS specification. Default is <c>2.0</c>.
         /// </summary>
         public string Version { get; set; }
 
@@ -34,7 +34,7 @@ namespace Skybrud.Umbraco.RssUtils {
 
         /// <summary>
         /// Gets or sets the generator of the feed. If you're a good fellow,
-        /// you will set this to <code>Skybrud.Umbraco.RssUtils</code>, but
+        /// you will set this to <c>Skybrud.Umbraco.RssUtils</c>, but
         /// this is not a requirement.
         /// </summary>
         public string Generator { get; set; }
@@ -181,7 +181,7 @@ namespace Skybrud.Umbraco.RssUtils {
                 Title = x.Name,
                 Guid = x.Id + "",
                 PubDate = x.CreateDate,
-                Link = x.UrlWithDomain()
+                Link = x.Url(mode: UrlMode.Absolute)
             });
         }
 
@@ -210,12 +210,12 @@ namespace Skybrud.Umbraco.RssUtils {
             xRss.Add(xChannel);
 
             // Add extra elements to the channel (if specified)
-            if (!String.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
-            if (!String.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));
-            if (!String.IsNullOrWhiteSpace(Language)) xChannel.Add(new XElement("language", Language));
+            if (!string.IsNullOrWhiteSpace(Generator)) xChannel.Add(new XElement("generator", Generator));
+            if (!string.IsNullOrWhiteSpace(Description)) xChannel.Add(new XElement("description", Description));
+            if (!string.IsNullOrWhiteSpace(Language)) xChannel.Add(new XElement("language", Language));
 
             // Set the RSS version (if specified)
-            if (!String.IsNullOrWhiteSpace(Version)) {
+            if (!string.IsNullOrWhiteSpace(Version)) {
                 xRss.Add(new XAttribute("version", Version));
             }
 
@@ -235,7 +235,7 @@ namespace Skybrud.Umbraco.RssUtils {
             xChannel.Add(from item in Items orderby item.PubDate descending select item.ToXElement());
 
             // Add the content namespace only if necessary
-            if (Items.Any(x => !String.IsNullOrWhiteSpace(x.Content))) {
+            if (Items.Any(x => !string.IsNullOrWhiteSpace(x.Content))) {
                 xRss.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/modules/content/"));
             }
 
