@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -23,7 +23,7 @@
   
   <ItemGroup>
     <Reference Include="System.Web" />
-    <PackageReference Include="UmbracoCms.Core" Version="8.1.0">
+    <PackageReference Include="UmbracoCms.Core" Version="8.5.4">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="UmbracoCms.Web" Version="8.1.0">
